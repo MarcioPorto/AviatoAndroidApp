@@ -1,16 +1,40 @@
 package com.aviato.android.aviato;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 public class BubblesActivity extends AppCompatActivity {
 
+    private ImageView mTransportation;
+    private ImageView mCheckIn;
+    private ImageView mImmigration;
+    private ImageView mSecurity;
+    private ImageView mGate;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubbles);
+
+        mTransportation = (ImageView)findViewById(R.id.transport_bubble);
+        mCheckIn = (ImageView)findViewById(R.id.checkin_bubble);
+        mImmigration = (ImageView)findViewById(R.id.immigration_bubble);
+        mSecurity = (ImageView)findViewById(R.id.security_bubble);
+        mGate = (ImageView)findViewById(R.id.gate_bubble);
+
+        mTransportation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BubblesActivity.this, TransportationModeActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
