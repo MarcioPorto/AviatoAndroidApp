@@ -8,4 +8,5 @@
     <string name="title_activity_transportation_mode">TransportationModeActivity</string>
     <string name="flight_number_intent_extra">flightNumber</string>
     <string name="flight_number_hint">Enter your flight number</string>
+    <string name="title_activity_car_map">Map</string>
 </resources>
