@@ -61,8 +61,82 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="UA743"
-        android:id="@+id/flight_number"
+        android:id="@+id/flight_number_label"
         android:layout_alignTop="@+id/departure_airport_code"
         android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="STATUS"
+                android:id="@+id/status_label"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BOARDING"
+                android:id="@+id/boarding_label"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GATE"
+                android:id="@+id/gate_label"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/status_value"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/boarding_value"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:id="@+id/gate_value"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>

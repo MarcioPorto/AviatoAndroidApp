@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Enter Flight Number"
+        android:text="Aviato"
         android:id="@+id/enter_flight_info_title"
         android:layout_above="@+id/flight_number_input_text"
         android:layout_centerHorizontal="true"
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/flight_number_input_text"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:hint="@string/flight_number_hint" />
 
 </RelativeLayout>
