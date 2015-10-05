@@ -10,52 +10,54 @@
                 android:background="#3399ff">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="How long transportation will take"
+        android:layout_width="@dimen/default_bubble_size"
+        android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/transport_bubble"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="43dp"
-        android:src="@mipmap/ic_empty_circle"/>
+        android:src="@mipmap/ic_empty_circle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="How long check in will take"
+        android:layout_width="@dimen/default_bubble_size"
+        android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/checkin_bubble"
         android:src="@mipmap/ic_empty_circle"
-        android:layout_below="@+id/transport_bubble"
-        android:layout_alignLeft="@+id/transport_bubble"
-        android:layout_alignStart="@+id/transport_bubble"/>
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="110dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="How long immigration will take."
+        android:layout_width="@dimen/default_bubble_size"
+        android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/immigration_bubble"
         android:src="@mipmap/ic_empty_circle"
-        android:layout_below="@+id/checkin_bubble"
-        android:layout_alignLeft="@+id/checkin_bubble"
-        android:layout_alignStart="@+id/checkin_bubble"/>
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="190dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="How long security will take."
+        android:layout_width="@dimen/default_bubble_size"
+        android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/security_bubble"
         android:src="@mipmap/ic_empty_circle"
-        android:layout_alignTop="@+id/gate_label"
-        android:layout_alignLeft="@+id/immigration_bubble"
-        android:layout_alignStart="@+id/immigration_bubble"/>
+        android:layout_marginLeft="140dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="270dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="How long gate will take."
+        android:layout_width="@dimen/default_bubble_size"
+        android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/gate_bubble"
         android:src="@mipmap/ic_empty_circle"
-        android:layout_below="@+id/security_bubble"
-        android:layout_alignLeft="@+id/security_bubble"
-        android:layout_alignStart="@+id/security_bubble"/>
+        android:layout_marginLeft="180dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="350dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,9 +65,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Transport"
         android:id="@+id/transport_label"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_toRightOf="@+id/transport_bubble"
+        android:layout_toEndOf="@+id/transport_bubble"
+        android:paddingLeft="@dimen/distance_from_bubble"
+        android:layout_alignTop="@+id/transport_bubble"
+        android:layout_alignBottom="@+id/transport_bubble"
+        android:textAllCaps="true"
+        android:textColor="#ffffffff"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,9 +80,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Check In"
         android:id="@+id/checkin_label"
-        android:layout_alignTop="@+id/transport_bubble"
-        android:layout_alignRight="@+id/transport_label"
-        android:layout_alignEnd="@+id/transport_label"/>
+        android:layout_toRightOf="@+id/checkin_bubble"
+        android:layout_toEndOf="@+id/checkin_bubble"
+        android:paddingLeft="@dimen/distance_from_bubble"
+        android:layout_alignTop="@+id/checkin_bubble"
+        android:layout_alignBottom="@+id/checkin_bubble"
+        android:textAllCaps="true"
+        android:textColor="#ffffffff"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,9 +95,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Immigration"
         android:id="@+id/immigration_label"
-        android:layout_below="@+id/transport_bubble"
-        android:layout_alignRight="@+id/transport_label"
-        android:layout_alignEnd="@+id/transport_label"/>
+        android:layout_toRightOf="@+id/immigration_bubble"
+        android:layout_toEndOf="@+id/immigration_bubble"
+        android:paddingLeft="@dimen/distance_from_bubble"
+        android:layout_alignTop="@+id/immigration_bubble"
+        android:layout_alignBottom="@+id/immigration_bubble"
+        android:textAllCaps="true"
+        android:textColor="#ffffffff"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -93,9 +110,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Security"
         android:id="@+id/security_label"
-        android:layout_below="@+id/checkin_bubble"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_toRightOf="@+id/security_bubble"
+        android:layout_toEndOf="@+id/security_bubble"
+        android:paddingLeft="@dimen/distance_from_bubble"
+        android:layout_alignTop="@+id/security_bubble"
+        android:layout_alignBottom="@+id/security_bubble"
+        android:textAllCaps="true"
+        android:textColor="#ffffffff"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -103,9 +125,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Gate"
         android:id="@+id/gate_label"
-        android:layout_below="@+id/immigration_bubble"
-        android:layout_alignRight="@+id/transport_label"
-        android:layout_alignEnd="@+id/transport_label"/>
+        android:layout_toRightOf="@+id/gate_bubble"
+        android:layout_toEndOf="@+id/gate_bubble"
+        android:paddingLeft="@dimen/distance_from_bubble"
+        android:layout_alignTop="@+id/gate_bubble"
+        android:layout_alignBottom="@+id/gate_bubble"
+        android:textAllCaps="true"
+        android:textColor="#ffffffff"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,6 +144,8 @@
         android:layout_alignBottom="@+id/transport_bubble"
         android:layout_alignRight="@+id/transport_bubble"
         android:layout_alignLeft="@+id/transport_bubble"
+        android:layout_alignStart="@id/transport_bubble"
+        android:layout_alignEnd="@id/transport_bubble"
         android:gravity="center"/>
 
     <TextView
@@ -129,6 +158,8 @@
         android:layout_alignBottom="@+id/checkin_bubble"
         android:layout_alignRight="@+id/checkin_bubble"
         android:layout_alignLeft="@+id/checkin_bubble"
+        android:layout_alignStart="@id/checkin_bubble"
+        android:layout_alignEnd="@id/checkin_bubble"
         android:gravity="center"/>
 
     <TextView
@@ -141,6 +172,8 @@
         android:layout_alignBottom="@+id/immigration_bubble"
         android:layout_alignRight="@+id/immigration_bubble"
         android:layout_alignLeft="@+id/immigration_bubble"
+        android:layout_alignStart="@id/immigration_bubble"
+        android:layout_alignEnd="@id/immigration_bubble"
         android:gravity="center"/>
 
     <TextView
@@ -153,6 +186,8 @@
         android:layout_alignBottom="@+id/security_bubble"
         android:layout_alignRight="@+id/security_bubble"
         android:layout_alignLeft="@+id/security_bubble"
+        android:layout_alignStart="@id/security_bubble"
+        android:layout_alignEnd="@id/security_bubble"
         android:gravity="center"/>
 
     <TextView
@@ -165,6 +200,8 @@
         android:layout_alignBottom="@+id/gate_bubble"
         android:layout_alignRight="@+id/gate_bubble"
         android:layout_alignLeft="@+id/gate_bubble"
+        android:layout_alignStart="@id/gate_bubble"
+        android:layout_alignEnd="@id/gate_bubble"
         android:gravity="center"/>
 
 </RelativeLayout>

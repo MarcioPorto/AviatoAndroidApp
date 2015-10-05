@@ -7,4 +7,8 @@
     <dimen name="transportation_mode_bottom_margin">12dp</dimen>
     
     <dimen name="transportation_label_padding_left">30dp</dimen>
+
+    <dimen name="distance_from_bubble">15dp</dimen>
+
+    <dimen name="default_bubble_size">50dp</dimen>
 </resources>

@@ -22,9 +22,7 @@ public class TransportationModeActivity extends AppCompatActivity {
     private ListView mListView;
     private TextView mEmptyText;
 
-    // These are just examples
-    String[] typesOfTransportation = { "Car", "Bus", "Bike" };
-    private TransportationMode[] mTripOptions = new TransportationMode[2];
+    private TransportationMode[] mTripOptions = new TransportationMode[3];
 
 
     @Override
@@ -35,21 +33,23 @@ public class TransportationModeActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.list_view);
 
         // This is the function that will get data from the API
-        // getTripOptionsInformation();
+        getTripOptionsInformation();
 
         // TODO: Call this after setting up getting json data
         // mTripOptions = getTripOptions(jsonData)
 
-        if (typesOfTransportation == null) {
-            mEmptyText = (TextView)findViewById(R.id.empty);
-            mEmptyText.setVisibility(View.VISIBLE);
-        }
-
-        TransportationMode dummyMode1 = new TransportationMode("car", 10);
-        TransportationMode dummyMode2 = new TransportationMode("bus", 20);
+        TransportationMode dummyMode1 = new TransportationMode("Car", 10);
+        TransportationMode dummyMode2 = new TransportationMode("Bus", 20);
+        TransportationMode dummyMode3 = new TransportationMode("Walk", 20);
 
         mTripOptions[0] = dummyMode1;
         mTripOptions[1] = dummyMode2;
+        mTripOptions[2] = dummyMode3;
+
+        if (mTripOptions == null) {
+            mEmptyText = (TextView)findViewById(R.id.empty);
+            mEmptyText.setVisibility(View.VISIBLE);
+        }
 
         TransportationModeAdapter adapter = new TransportationModeAdapter(this, mTripOptions);
         // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, typesOfTransportation);
@@ -86,15 +86,18 @@ public class TransportationModeActivity extends AppCompatActivity {
     }
 
     private TransportationMode[] getTripOptions(String jsonData) throws JSONException {
-        JSONObject forecast = new JSONObject(jsonData);
-        String timezone = forecast.getString("timezone");
-        JSONObject daily = forecast.getJSONObject("daily");
-        JSONArray data = daily.getJSONArray("data");
+        JSONObject query = new JSONObject(jsonData);
+        // I don't know how these will be called yet because they depend on the Google API. Will change variable names later.
+        // Also notice that this is an example of what it would look like if we have nested JSON Objects.
+        JSONObject x = query.getJSONObject("x");
+        JSONArray y = x.getJSONArray("y");
 
-        TransportationMode[] tripOptions = new TransportationMode[data.length()];
+        // In this case, .length() represents the different transportation options, but I don't know yet if that is the actual structure of the data.
+        TransportationMode[] tripOptions = new TransportationMode[y.length()];
 
-        for (int i = 0; i < data.length(); i++) {
-            JSONObject jsonInfo = data.getJSONObject(i);
+        // Loop through different options
+        for (int i = 0; i < y.length(); i++) {
+            JSONObject jsonInfo = y.getJSONObject(i);
             TransportationMode mode = new TransportationMode();
 
             // This is an example of how these will look like. Change to exact names matching JSON data
@@ -105,6 +108,10 @@ public class TransportationModeActivity extends AppCompatActivity {
         }
 
         return tripOptions;
+    }
+
+    private void getTripOptionsInformation() {
+        // TODO: Gather information from the API about the different trip options
     }
 
 }

@@ -40,11 +40,14 @@ public class TransportationMode {
         // This is a default value
         int iconId = R.mipmap.ic_directions_car_white_48dp;
 
-        if (transportType.equals("car")) {
+        if (transportType.equals("Car")) {
             iconId = R.mipmap.ic_directions_car_white_48dp;
         }
-        else if (transportType.equals("bus")) {
-            iconId = R.mipmap.ic_directions_car_white_48dp;
+        else if (transportType.equals("Bus")) {
+            iconId = R.mipmap.ic_directions_bus_white_48dp;
+        }
+        else if (transportType.equals("Walk")) {
+            iconId = R.mipmap.ic_directions_walk_white_48dp;
         }
 
         return iconId;

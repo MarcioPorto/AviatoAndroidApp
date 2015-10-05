@@ -33,17 +33,6 @@
         android:textSize="24dp"
         android:textColor="#ffffffff"/>
 
-    <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/arrowIcon"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:paddingTop="@dimen/transportation_mode_top_margin"-->
-        <!--android:paddingBottom="@dimen/transportation_mode_bottom_margin"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:src="@mipmap/ic_keyboard_arrow_right_black_24dp"/>-->
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
