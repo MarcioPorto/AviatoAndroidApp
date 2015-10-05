@@ -1,5 +1,6 @@
 package com.aviato.android.aviato.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TransportationModeActivity extends AppCompatActivity {
+
+    public static final String TAG = TransportationModeActivity.class.getSimpleName();
 
     private ListView mListView;
     private TextView mEmptyText;
@@ -58,6 +61,15 @@ public class TransportationModeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO: Handle the case when an item is clicked
+
+                //Get the String value of the item where the user clicked
+                TransportationMode item = (TransportationMode) mListView.getItemAtPosition(position);
+
+                if (item.getTransportType().equals("Car")) {
+                    Intent intent = new Intent(getApplicationContext(), CarMapActivity.class);
+                    // maybe input extra stuff
+                    startActivity(intent);
+                }
             }
         });
 

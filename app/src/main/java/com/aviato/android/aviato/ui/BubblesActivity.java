@@ -96,10 +96,10 @@ public class BubblesActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams gateParams = new RelativeLayout.LayoutParams(g, g);
 
         mTransportationBubble.setLayoutParams(transportParams);
-        mCheckInBubble.setLayoutParams(checkInParams);
-        mImmigrationBubble.setLayoutParams(immigrationParams);
-        mSecurityBubble.setLayoutParams(securityParams);
-        mGateBubble.setLayoutParams(gateParams);
+//        mCheckInBubble.setLayoutParams(checkInParams);
+//        mImmigrationBubble.setLayoutParams(immigrationParams);
+//        mSecurityBubble.setLayoutParams(securityParams);
+//        mGateBubble.setLayoutParams(gateParams);
 
         // ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(250, 250);
         // mTransportationBubble.setLayoutParams(params);

@@ -23,6 +23,7 @@
         android:contentDescription="How long check in will take"
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
+        android:scaleType="fitCenter"
         android:id="@+id/checkin_bubble"
         android:src="@mipmap/ic_empty_circle"
         android:layout_marginLeft="60dp"
