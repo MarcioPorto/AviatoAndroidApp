@@ -1,16 +1,46 @@
 package com.aviato.android.aviato;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class TransportationModeActivity extends AppCompatActivity {
+
+    private ListView mListView;
+    private TextView mEmptyText;
+
+    // These are just examples
+    String[] typesOfTransportation = { "Car", "Bus", "Bike" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation_mode);
+
+        mListView = (ListView) findViewById(R.id.list_view);
+
+        if (typesOfTransportation == null) {
+            mEmptyText = (TextView)findViewById(R.id.empty);
+            mEmptyText.setVisibility(View.VISIBLE);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, typesOfTransportation);
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO: Handle the case when an item is clicked
+            }
+        });
+
+
     }
 
     @Override
@@ -34,4 +64,5 @@ public class TransportationModeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

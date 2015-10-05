@@ -6,7 +6,8 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.aviato.android.aviato.BubblesActivity">
+                tools:context="com.aviato.android.aviato.BubblesActivity"
+                android:background="#3399ff">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -18,44 +19,152 @@
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="43dp"
-        android:src="@mipmap/ic_play_circle_filled_black_48dp"/>
+        android:src="@mipmap/ic_empty_circle"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkin_bubble"
-        android:src="@mipmap/ic_play_circle_filled_black_48dp"
+        android:src="@mipmap/ic_empty_circle"
         android:layout_below="@+id/transport_bubble"
-        android:layout_toLeftOf="@+id/immigration_bubble"
-        android:layout_toStartOf="@+id/immigration_bubble"/>
+        android:layout_alignLeft="@+id/transport_bubble"
+        android:layout_alignStart="@+id/transport_bubble"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/immigration_bubble"
-        android:src="@mipmap/ic_play_circle_filled_black_48dp"
+        android:src="@mipmap/ic_empty_circle"
         android:layout_below="@+id/checkin_bubble"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"/>
+        android:layout_alignLeft="@+id/checkin_bubble"
+        android:layout_alignStart="@+id/checkin_bubble"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/security_bubble"
-        android:src="@mipmap/ic_play_circle_filled_black_48dp"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/immigration_bubble"
-        android:layout_toRightOf="@+id/immigration_bubble"
-        android:layout_toEndOf="@+id/immigration_bubble"/>
+        android:src="@mipmap/ic_empty_circle"
+        android:layout_alignTop="@+id/gate_label"
+        android:layout_alignLeft="@+id/immigration_bubble"
+        android:layout_alignStart="@+id/immigration_bubble"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gate_bubble"
-        android:src="@mipmap/ic_play_circle_filled_black_48dp"
-        android:layout_marginTop="38dp"
+        android:src="@mipmap/ic_empty_circle"
         android:layout_below="@+id/security_bubble"
-        android:layout_toRightOf="@+id/security_bubble"
-        android:layout_toEndOf="@+id/security_bubble"/>
+        android:layout_alignLeft="@+id/security_bubble"
+        android:layout_alignStart="@+id/security_bubble"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Transport"
+        android:id="@+id/transport_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Check In"
+        android:id="@+id/checkin_label"
+        android:layout_alignTop="@+id/transport_bubble"
+        android:layout_alignRight="@+id/transport_label"
+        android:layout_alignEnd="@+id/transport_label"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Immigration"
+        android:id="@+id/immigration_label"
+        android:layout_below="@+id/transport_bubble"
+        android:layout_alignRight="@+id/transport_label"
+        android:layout_alignEnd="@+id/transport_label"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Security"
+        android:id="@+id/security_label"
+        android:layout_below="@+id/checkin_bubble"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gate"
+        android:id="@+id/gate_label"
+        android:layout_below="@+id/immigration_bubble"
+        android:layout_alignRight="@+id/transport_label"
+        android:layout_alignEnd="@+id/transport_label"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100"
+        android:id="@+id/transport_value"
+        android:layout_alignTop="@+id/transport_bubble"
+        android:layout_alignBottom="@+id/transport_bubble"
+        android:layout_alignRight="@+id/transport_bubble"
+        android:layout_alignLeft="@+id/transport_bubble"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100"
+        android:id="@+id/checkin_value"
+        android:layout_alignTop="@+id/checkin_bubble"
+        android:layout_alignBottom="@+id/checkin_bubble"
+        android:layout_alignRight="@+id/checkin_bubble"
+        android:layout_alignLeft="@+id/checkin_bubble"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100"
+        android:id="@+id/immigration_value"
+        android:layout_alignTop="@+id/immigration_bubble"
+        android:layout_alignBottom="@+id/immigration_bubble"
+        android:layout_alignRight="@+id/immigration_bubble"
+        android:layout_alignLeft="@+id/immigration_bubble"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100"
+        android:id="@+id/security_value"
+        android:layout_alignTop="@+id/security_bubble"
+        android:layout_alignBottom="@+id/security_bubble"
+        android:layout_alignRight="@+id/security_bubble"
+        android:layout_alignLeft="@+id/security_bubble"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="100"
+        android:id="@+id/gate_value"
+        android:layout_alignTop="@+id/gate_bubble"
+        android:layout_alignBottom="@+id/gate_bubble"
+        android:layout_alignRight="@+id/gate_bubble"
+        android:layout_alignLeft="@+id/gate_bubble"
+        android:gravity="center"/>
 
 </RelativeLayout>

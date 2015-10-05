@@ -7,27 +7,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class BubblesActivity extends AppCompatActivity {
 
-    private ImageView mTransportation;
-    private ImageView mCheckIn;
-    private ImageView mImmigration;
-    private ImageView mSecurity;
-    private ImageView mGate;
+    private ImageView mTransportationBubble;
+
+    private TextView mTransportValue;
+    private TextView mCheckInValue;
+    private TextView mImmigrationValue;
+    private TextView mSecurityValue;
+    private TextView mGateValue;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubbles);
 
-        mTransportation = (ImageView)findViewById(R.id.transport_bubble);
-        mCheckIn = (ImageView)findViewById(R.id.checkin_bubble);
-        mImmigration = (ImageView)findViewById(R.id.immigration_bubble);
-        mSecurity = (ImageView)findViewById(R.id.security_bubble);
-        mGate = (ImageView)findViewById(R.id.gate_bubble);
+        mTransportationBubble = (ImageView)findViewById(R.id.transport_bubble);
 
-        mTransportation.setOnClickListener(new View.OnClickListener() {
+        mTransportValue = (TextView)findViewById(R.id.transport_value);
+        mCheckInValue = (TextView)findViewById(R.id.checkin_value);
+        mImmigrationValue = (TextView)findViewById(R.id.immigration_value);
+        mSecurityValue = (TextView)findViewById((R.id.security_value));
+        mGateValue = (TextView)findViewById(R.id.gate_value);
+
+        mTransportationBubble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BubblesActivity.this, TransportationModeActivity.class);

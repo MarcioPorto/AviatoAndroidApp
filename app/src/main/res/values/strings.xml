@@ -9,4 +9,6 @@
     <string name="flight_number_intent_extra">flightNumber</string>
     <string name="flight_number_hint">Enter your flight number</string>
     <string name="title_activity_car_map">Map</string>
+    <string name="flght_number_check_message">You have not entered any flight number. Please do so in order to continue</string>
+    <string name="no_transportation_data_gathered">Oops! We could not gather any data for you.</string>
 </resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:background="#3399ff">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/transportationModeIcon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="@dimen/transportation_mode_top_margin"
+        android:paddingBottom="@dimen/transportation_mode_bottom_margin"
+        android:src="@mipmap/ic_directions_car_white_48dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/transportationLabel"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/transportationModeIcon"
+        android:layout_toEndOf="@+id/transportationModeIcon"
+        android:paddingLeft="@dimen/transportation_label_padding_left"
+        android:text="Car"
+        android:textSize="24dp"
+        android:textColor="#ffffffff"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/arrowIcon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="@dimen/transportation_mode_top_margin"
+        android:paddingBottom="@dimen/transportation_mode_bottom_margin"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_keyboard_arrow_right_black_24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10 min"
+        android:id="@+id/tripTime"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/arrowIcon"
+        android:paddingRight="@dimen/transportation_label_padding_left"
+        android:textColor="#ffffffff"/>
+
+</RelativeLayout>

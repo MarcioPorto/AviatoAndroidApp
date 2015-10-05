@@ -31,7 +31,11 @@
         <activity
             android:name=".FlightInfoActivity"
             android:label="Flight Info"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aviato.android.aviato.MainActivity" />
         </activity>
         <activity
             android:name=".BubblesActivity"

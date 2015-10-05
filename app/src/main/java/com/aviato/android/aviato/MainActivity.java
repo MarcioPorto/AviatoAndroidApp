@@ -8,8 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     private EditText mFlightNumberField;
     private Button mGoButton;
@@ -26,7 +29,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String flightNumber = mFlightNumberField.getText().toString();
-                startStory(flightNumber);
+                if (flightNumber.equals("")) {
+                    // String is empty. Show warning.
+                    Toast.makeText(MainActivity.this.getApplicationContext(),
+                            getString(R.string.flght_number_check_message),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    startStory(flightNumber);
+                }
             }
         });
 
