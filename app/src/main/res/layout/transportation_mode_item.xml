@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/transportationLabel"
+        android:id="@+id/transportationType"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/transportationModeIcon"
         android:layout_toEndOf="@+id/transportationModeIcon"
@@ -33,16 +33,16 @@
         android:textSize="24dp"
         android:textColor="#ffffffff"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/arrowIcon"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:paddingTop="@dimen/transportation_mode_top_margin"
-        android:paddingBottom="@dimen/transportation_mode_bottom_margin"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/ic_keyboard_arrow_right_black_24dp"/>
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/arrowIcon"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:paddingTop="@dimen/transportation_mode_top_margin"-->
+        <!--android:paddingBottom="@dimen/transportation_mode_bottom_margin"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@mipmap/ic_keyboard_arrow_right_black_24dp"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,8 +51,8 @@
         android:text="10 min"
         android:id="@+id/tripTime"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/arrowIcon"
-        android:paddingRight="@dimen/transportation_label_padding_left"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
         android:textColor="#ffffffff"/>
 
 </RelativeLayout>

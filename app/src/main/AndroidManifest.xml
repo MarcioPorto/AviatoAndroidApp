@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -29,31 +29,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FlightInfoActivity"
+            android:name=".ui.FlightInfoActivity"
             android:label="Flight Info"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aviato.android.aviato.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".BubblesActivity"
+            android:name=".ui.BubblesActivity"
             android:label="Bubble Page"
-            android:parentActivityName=".FlightInfoActivity"
+            android:parentActivityName=".ui.FlightInfoActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aviato.android.aviato.FlightInfoActivity" />
+                android:value=".ui.FlightInfoActivity" />
         </activity>
         <activity
-            android:name=".TransportationModeActivity"
+            android:name=".ui.TransportationModeActivity"
             android:label="Mode of Transportation"
-            android:parentActivityName=".BubblesActivity"
+            android:parentActivityName=".ui.BubblesActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aviato.android.aviato.BubblesActivity" />
+                android:value=".ui.BubblesActivity" />
         </activity>
 
         <meta-data
@@ -64,13 +64,13 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".CarMapActivity"
+            android:name=".ui.CarMapActivity"
             android:label="@string/title_activity_car_map"
-            android:parentActivityName=".TransportationModeActivity"
+            android:parentActivityName=".ui.TransportationModeActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aviato.android.aviato.TransportationModeActivity" />
+                android:value=".ui.TransportationModeActivity" />
         </activity>
     </application>
 
