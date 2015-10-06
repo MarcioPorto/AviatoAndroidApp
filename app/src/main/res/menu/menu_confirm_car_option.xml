@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.aviato.android.aviato.ui.CarMapActivity">
+
+    <item android:id="@+id/action_confirm"
+          android:title="Confirm"
+          android:orderInCategory="100"
+          app:showAsAction="always"
+          android:visible="true"
+          android:icon="@mipmap/ic_check_white_36dp" />
+
+</menu>

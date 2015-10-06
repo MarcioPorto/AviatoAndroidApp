@@ -124,6 +124,7 @@ public class TransportationModeActivity extends AppCompatActivity {
 
     private void getTripOptionsInformation() {
         // TODO: Gather information from the API about the different trip options
+
     }
 
 }
