@@ -205,4 +205,27 @@
         android:layout_alignEnd="@id/gate_bubble"
         android:gravity="center"/>
 
+
+    <!-- Testing Latitude and Longitude Information -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Failed"
+        android:id="@+id/test_lat"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Failed"
+        android:id="@+id/test_long"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>

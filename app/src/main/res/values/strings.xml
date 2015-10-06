@@ -11,4 +11,19 @@
     <string name="title_activity_car_map">Map</string>
     <string name="flght_number_check_message">You have not entered any flight number. Please do so in order to continue</string>
     <string name="no_transportation_data_gathered">Oops! We could not gather any data for you.</string>
+
+    <!-- Geofence transition strings -->
+    <string name="geofence_transition_entered">Entered</string>
+    <string name="geofence_transition_exited">Exited</string>
+    <string name="unknown_geofence_transition">Unknown Transition</string>
+
+    <!-- Errors -->
+    <string name="not_connected">GoogleApiClient no yet connected. Try again.</string>
+    <string name="geofence_not_available">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call</string>
+    <string name="unknown_geofence_error">Unknown error: the Geofence service is not available now</string>
+    <string name="geofence_transition_invalid_type">Geofence transition error: invalid transition type %1$d</string>
+    <string name="geofence_transition_notification_text">Click notification to return to app</string>
+
 </resources>
