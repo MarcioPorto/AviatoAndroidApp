@@ -75,8 +75,6 @@ public class TransportationModeActivity extends Activity {
 
         getTripOptionsInformation("car");
         getTripOptionsInformation("transit");
-        getTripOptionsInformation("walk");
-        getTripOptionsInformation("bicycle");
 
     }
 
@@ -160,9 +158,9 @@ public class TransportationModeActivity extends Activity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TransportationModeActivity.this,
-                                                test,
-                                                Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(TransportationModeActivity.this,
+//                                                test,
+//                                                Toast.LENGTH_LONG).show();
                                         // updateDisplay(mode, transportMode);
                                     }
                                 });
@@ -278,12 +276,6 @@ public class TransportationModeActivity extends Activity {
                 case "transit":
                     mTripOptions[1].setTripTime(000);
                     break;
-                case "walk":
-                    mTripOptions[2].setTripTime(000);
-                    break;
-                case "bicycle":
-                    mTripOptions[3].setTripTime(000);
-                    break;
             }
             return "Problem.";
         }
@@ -311,12 +303,6 @@ public class TransportationModeActivity extends Activity {
                 break;
             case "transit":
                 mTripOptions[1].setTripTime(counter);
-                break;
-            case "walk":
-                mTripOptions[2].setTripTime(counter);
-                break;
-            case "bicycle":
-                mTripOptions[3].setTripTime(counter);
                 break;
         }
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aviato.android.aviato.R;
+import com.aviato.android.aviato.models.Constants;
 import com.aviato.android.aviato.models.TransportationMode;
 
 public class TransportationModeAdapter extends BaseAdapter {
@@ -58,7 +59,8 @@ public class TransportationModeAdapter extends BaseAdapter {
         holder.transportType.setText(mode.getTransportType());
         switch (mode.getTransportType()) {
             case "Car":
-                holder.tripTime.setText(mode.getTripTime() + " min");
+                holder.tripTime.setText(Constants.TRANSPORT_VALUE + " min");
+                break;
             case "Transit":
                 // holder.tripTime.setText(mode.getTripTime() + " min");
                 holder.tripTime.setText("1h 26min");

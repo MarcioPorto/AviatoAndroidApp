@@ -95,7 +95,7 @@ public class FlightInfoActivity extends Activity {
         mArrivalAirportCity.setText("San Francisco");
         mArrivalAirportCode.setText("SFO");
         mFlightStatusValue.setText("On time");
-        mFlightBoardingValue.setText("10:30 AM");
+        mFlightBoardingValue.setText("03:45 PM");
         mFlightGateValue.setText("3F");
     }
 

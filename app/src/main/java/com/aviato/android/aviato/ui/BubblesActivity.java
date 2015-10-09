@@ -2,26 +2,22 @@ package com.aviato.android.aviato.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +83,8 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private static final String PREFERENCE_INDEX = "index";
     private static final String PREFERENCE_LOCATION = "location";
     private static final String PREFERENCE_REALTIME = "realTimeLog";
+    private static final String MODE_SCANNING = "Stop";
+    private static final String MODE_STOPPED = "Scan";
 
     /*
      * Define a request code to send to Google Play services
@@ -138,6 +136,8 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private TextView mLoungeValue;
     private TextView mBufferValue;
 
+    private Button mScanButton;
+
     protected ArrayList<Geofence> mGeofenceList;
 
     public int mUsersInTransit = 0;
@@ -180,6 +180,9 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         mLoungeValue.setText(0 + "");
         mBufferValue.setText(0 + "");
 
+        mScanButton = (Button)findViewById(R.id.scanButton);
+        mScanButton.setText(MODE_STOPPED);
+
         mGeofenceList = new ArrayList<Geofence>();
 
         // I will hardcode this for now, but can gather information from flights API
@@ -195,7 +198,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         region = app.getRegion();
         beaconManager.bind(this);
 
-        // Maybe substitute this locally at a later point
         populateGeofenceList();
 
         fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, "Check In Desk");
@@ -208,6 +210,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         updateBubblesSize("Security Zone");
         updateBubblesSize("Lounge");
         updateBubblesSize("Gate");
+        updateBufferSize();
 
         mTransportationBubble.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +233,12 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
             }
         });
 
-        startScanning();
+        mScanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleScanState();
+            }
+        });
 
         Toast.makeText(this, "Please wait while we calibrate your trip time based on your current location.", Toast.LENGTH_SHORT).show();
 
@@ -247,10 +255,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     @Override
     public void onPause() {
         super.onPause();
-        // Uncommenting the following leak prevents a ServiceConnection leak when using the back
-        // arrow in the Action Bar to come out of the file list screen. Unfortunately it also kills
-        // background scanning, and as I have no workaround right now I'm settling for the lesser of
-        // two evils.
         beaconManager.unbind(this);
     }
 
@@ -260,12 +264,12 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                BubblesActivity.this.mUsersInCheckIn=0;
-                BubblesActivity.this.mUsersInSecurity=0;
-                BubblesActivity.this.mUsersInLounge=0;
-                BubblesActivity.this.mUsersInGate=0;
+                BubblesActivity.this.mUsersInCheckIn = 0;
+                BubblesActivity.this.mUsersInSecurity = 0;
+                BubblesActivity.this.mUsersInLounge = 0;
+                BubblesActivity.this.mUsersInGate = 0;
                 if (e == null) {
-                    for (ParseObject user : list){
+                    for (ParseObject user : list) {
                         switch (user.get("location").toString()) {
                             case "Check In Desk":
                                 BubblesActivity.this.mUsersInCheckIn++;
@@ -283,19 +287,19 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                                 Log.i("RIHANNA", "Transit should not be updated here");
                         }
                     }
+                    fillBubbleValues(10, BubblesActivity.this.mUsersInCheckIn, 25, 3, 1, "Check In Desk");
+                    fillBubbleValues(10, BubblesActivity.this.mUsersInSecurity, 25, 3, 1, "Security Zone");
+                    fillBubbleValues(10, BubblesActivity.this.mUsersInLounge, 25, 3, 1, "Lounge");
+                    fillBubbleValues(10, BubblesActivity.this.mUsersInGate, 25, 3, 1, "Gate");
+
+                    updateBubblesSize("Check In Desk");
+                    updateBubblesSize("Security Zone");
+                    updateBubblesSize("Lounge");
+                    updateBubblesSize("Gate");
                 }
-                Toast.makeText(BubblesActivity.this, String.valueOf(mUsersInCheckIn), Toast.LENGTH_LONG).show();
             }
         });
-        fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, "Check In Desk");
-        fillBubbleValues(10, mUsersInSecurity, 25, 3, 1, "Security Zone");
-        fillBubbleValues(10, mUsersInLounge, 25, 3, 1, "Lounge");
-        fillBubbleValues(10, mUsersInGate, 25, 3, 1, "Gate");
 
-        updateBubblesSize("Check In Desk");
-        updateBubblesSize("Security Zone");
-        updateBubblesSize("Lounge");
-        updateBubblesSize("Gate");
     }
 
     @Override
@@ -329,7 +333,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();
-        stopScanning();
         super.onStop();
     }
 
@@ -417,8 +420,8 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                 mTransportationBubble.getLayoutParams().width = (Constants.TRANSPORT_VALUE) + 60;
                 break;
             case "Check In Desk":
-                mCheckInBubble.getLayoutParams().height = (mUsersInCheckIn * 20) + 60;
-                mCheckInBubble.getLayoutParams().width = (mUsersInCheckIn * 20) + 60;
+                mCheckInBubble.getLayoutParams().height = (mUsersInCheckIn * 30) + 60;
+                mCheckInBubble.getLayoutParams().width = (mUsersInCheckIn * 30) + 60;
                 break;
             case "Security Zone":
                 mSecurityBubble.getLayoutParams().height = (mUsersInSecurity * 3) + 60;
@@ -437,8 +440,8 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     }
 
     private void updateBufferSize() {
-        mBufferBubble.getLayoutParams().height = (Constants.BUFFER_VALUE * 3) + 20;
-        mBufferBubble.getLayoutParams().width = (Constants.BUFFER_VALUE * 3) + 20;
+        mBufferBubble.getLayoutParams().height = (Constants.BUFFER_VALUE) + 60;
+        mBufferBubble.getLayoutParams().width = (Constants.BUFFER_VALUE) + 60;
     }
 
     public void populateGeofenceList() {
@@ -506,59 +509,17 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
     public void onResult(Status status) {
         if (status.isSuccess()) {
-            Toast.makeText(
-                    this,
-                    "Geofences Added",
-                    Toast.LENGTH_SHORT
-            ).show();
+//            Toast.makeText(
+//                    this,
+//                    "Geofences Added",
+//                    Toast.LENGTH_SHORT
+//            ).show();
         } else {
             // Get the status code for the error and log it using a user-friendly message.
             String errorMessage = GeofenceErrorMessages.getErrorString(this,
                     status.getStatusCode());
             Log.e(TAG, errorMessage);
         }
-    }
-
-    private void test_sendNotification(String notificationDetails) {
-        // Create an explicit content Intent that starts the main Activity.
-        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-
-        // Construct a task stack.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-
-        // Add the main Activity to the task stack as the parent.
-        stackBuilder.addParentStack(MainActivity.class);
-
-        // Push the content Intent onto the stack.
-        stackBuilder.addNextIntent(notificationIntent);
-
-        // Get a PendingIntent containing the entire back stack.
-        PendingIntent notificationPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Get a notification builder that's compatible with platform versions >= 4
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-
-        // Define the notification settings.
-        builder.setSmallIcon(R.mipmap.ic_launcher)
-                // In a real app, you may want to use a library like Volley
-                // to decode the Bitmap.
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.ic_launcher))
-                .setColor(Color.RED)
-                .setContentTitle(notificationDetails)
-                .setContentText(getString(R.string.geofence_transition_notification_text))
-                .setContentIntent(notificationPendingIntent);
-
-        // Dismiss notification once the user touches it.
-        builder.setAutoCancel(true);
-
-        // Get an instance of the Notification manager
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Issue the notification
-        mNotificationManager.notify(0, builder.build());
     }
 
     private void getTransportationTime() {
@@ -599,9 +560,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(BubblesActivity.this,
-                                            transportationValue,
-                                            Toast.LENGTH_LONG).show();
                                     mTransportValue.setText(transportationValue);
                                     Constants.TRANSPORT_VALUE = Integer.valueOf(transportationValue);
                                     updateBubblesSize("Transit");
@@ -671,9 +629,9 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     /**
      * start looking for beacons.
      */
-    private void startScanning() {
+    private void startScanning(Button scanButton) {
 
-        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
 
         // Reset event counter
         eventNum = 1;
@@ -743,7 +701,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     /**
      * Stop looking for beacons.
      */
-    private void stopScanning() {
+    private void stopScanning(Button scanButton) {
         try {
             beaconManager.stopRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
@@ -818,7 +776,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
+//                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -861,6 +819,15 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                   */
                         break;
                 }
+        }
+    }
+
+    private void toggleScanState() {
+        String currentState = mScanButton.getText().toString();
+        if (currentState.equals(MODE_SCANNING)) {
+            stopScanning(mScanButton);
+        } else {
+            startScanning(mScanButton);
         }
     }
 

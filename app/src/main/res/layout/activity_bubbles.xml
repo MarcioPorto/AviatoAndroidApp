@@ -36,7 +36,7 @@
         android:contentDescription="How long immigration will take."
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:id="@+id/immigration_bubble"
         android:src="@drawable/empty_circle"
         android:layout_marginLeft="100dp"
@@ -47,6 +47,7 @@
         android:contentDescription="How long security will take."
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
+        android:scaleType="fitCenter"
         android:id="@+id/security_bubble"
         android:src="@drawable/empty_circle"
         android:layout_marginLeft="140dp"
@@ -57,6 +58,7 @@
         android:contentDescription="How long gate will take."
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
+        android:scaleType="fitCenter"
         android:id="@+id/gate_bubble"
         android:src="@drawable/empty_circle"
         android:layout_marginLeft="180dp"
@@ -247,5 +249,15 @@
         android:layout_alignStart="@id/buffer_bubble"
         android:layout_alignEnd="@id/buffer_bubble"
         android:gravity="center"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/scanButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
