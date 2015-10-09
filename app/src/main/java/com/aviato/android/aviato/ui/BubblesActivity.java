@@ -569,7 +569,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
         String origin = Double.toString(mUserLatitude) + "," + Double.toString(mUserLongitude);
         String destination = Double.toString(mDestinationLatitude) + "," + Double.toString(mDestinationLongitude);
-        String apiKey = "AIzaSyBAXuIbW7Hn07sggLJZuG3v_Uwu7gQaPcU";
+        String apiKey = "AIzaSyAZ8MrrgbA9f6N5epzPjMdhw7X29HMO8e0";
         String arrivalTime = "1444305043";
 
         // Mode already defaults to driving
@@ -606,7 +606,11 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                                     if (mIsTransit) {
                                         mTransportValue.setText("86");
                                     } else {
+//                                        if (Constants.CURRENT_USER.get("location").equals("Checkin Desk")) {
+//                                            mTransportValue.setText(0);
+//                                        } else {
                                         mTransportValue.setText(transportationValue);
+//                                        }
                                     }
                                     Constants.TRANSPORT_VALUE = Integer.valueOf(transportationValue);
                                     updateBubblesSize("Transit");
@@ -726,10 +730,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
                             updateLocations();
 
-                            if (bD.getMajor().toString().equals("1000")) {
-                                Constants.TRANSPORT_VALUE = 0;
-                            }
-
+                            // if (bD.getMajor().toString().equals("1000")) {}
 
                             // TODO - update server
                             // TODO - potentially determine location in app based on major value
@@ -826,7 +827,10 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                // Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
+//                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
+//                if (Constants.CURRENT_USER.get("location").equals("Checkin Desk")) {
+//                    mTransportValue.setText(0);
+//                }
             }
         });
     }
