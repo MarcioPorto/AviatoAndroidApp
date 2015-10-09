@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,8 +87,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private static final String PREFERENCE_INDEX = "index";
     private static final String PREFERENCE_LOCATION = "location";
     private static final String PREFERENCE_REALTIME = "realTimeLog";
-    private static final String MODE_SCANNING = "Stop Scanning";
-    private static final String MODE_STOPPED = "Start Scanning";
 
     /*
      * Define a request code to send to Google Play services
@@ -121,8 +118,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-    private TextView mTestLat;
-    private TextView mTestLong;
     public double mUserLatitude;
     public double mUserLongitude;
 
@@ -131,19 +126,19 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
     private ImageView mTransportationBubble;
     private ImageView mCheckInBubble;
-    private ImageView mImmigrationBubble;
     private ImageView mSecurityBubble;
+    private ImageView mLoungeBubble;
     private ImageView mGateBubble;
+    private ImageView mBufferBubble;
 
     private TextView mTransportValue;
     private TextView mCheckInValue;
     private TextView mSecurityValue;
     private TextView mGateValue;
     private TextView mLoungeValue;
+    private TextView mBufferValue;
 
     protected ArrayList<Geofence> mGeofenceList;
-
-    private Button mScanButton;
 
     public int mUsersInTransit = 0;
     public int mUsersInCheckIn = 0;
@@ -166,28 +161,26 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
         mTransportationBubble = (ImageView)findViewById(R.id.transport_bubble);
         mCheckInBubble = (ImageView)findViewById(R.id.checkin_bubble);
-        mImmigrationBubble = (ImageView)findViewById(R.id.immigration_bubble);
-        mSecurityBubble = (ImageView)findViewById(R.id.security_bubble);
+        mSecurityBubble = (ImageView)findViewById(R.id.immigration_bubble);
+        mLoungeBubble = (ImageView)findViewById(R.id.security_bubble);
         mGateBubble = (ImageView)findViewById(R.id.gate_bubble);
+        mBufferBubble = (ImageView)findViewById(R.id.buffer_bubble);
 
         mTransportValue = (TextView)findViewById(R.id.transport_value);
         mCheckInValue = (TextView)findViewById(R.id.checkin_value);
         mSecurityValue = (TextView)findViewById(R.id.immigration_value);
         mGateValue = (TextView)findViewById((R.id.security_value));
         mLoungeValue = (TextView)findViewById(R.id.gate_value);
+        mBufferValue = (TextView)findViewById(R.id.buffer_value);
+
         mTransportValue.setText(0 + "");
         mCheckInValue.setText(0 + "");
         mSecurityValue.setText(0 + "");
         mGateValue.setText(0 + "");
         mLoungeValue.setText(0 + "");
-
-        mScanButton = (Button)findViewById(R.id.newButton);
-        mScanButton.setText(MODE_STOPPED);
+        mBufferValue.setText(0 + "");
 
         mGeofenceList = new ArrayList<Geofence>();
-
-        mTestLat = (TextView)findViewById(R.id.test_lat);
-        mTestLong = (TextView)findViewById(R.id.test_long);
 
         // I will hardcode this for now, but can gather information from flights API
         mDestinationLatitude = 1.3592;
@@ -198,14 +191,23 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         BeaconScannerApp app = (BeaconScannerApp)this.getApplication();
         beaconManager = app.getBeaconManager();
-        //beaconManager.setForegroundScanPeriod(10);
+        // beaconManager.setForegroundScanPeriod(10);
         region = app.getRegion();
         beaconManager.bind(this);
 
         // Maybe substitute this locally at a later point
         populateGeofenceList();
 
-        drawBubbles(100, 50, 150, 50, 80);
+        fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, "Check In Desk");
+        fillBubbleValues(10, mUsersInSecurity, 25, 3, 1, "Security Zone");
+        fillBubbleValues(10, mUsersInLounge, 25, 3, 1, "Lounge");
+        fillBubbleValues(10, mUsersInGate, 25, 3, 1, "Gate");
+
+        updateBubblesSize("Transit");
+        updateBubblesSize("Check In Desk");
+        updateBubblesSize("Security Zone");
+        updateBubblesSize("Lounge");
+        updateBubblesSize("Gate");
 
         mTransportationBubble.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,29 +221,26 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
             }
         });
 
-        mScanButton.setOnClickListener(new View.OnClickListener() {
+        mBufferBubble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleScanState();
+                Constants.BUFFER_VALUE += 10;
+                updateBufferSize();
+                mBufferValue.setText(Constants.BUFFER_VALUE + "");
             }
         });
 
+        startScanning();
+
         Toast.makeText(this, "Please wait while we calibrate your trip time based on your current location.", Toast.LENGTH_SHORT).show();
 
-        // test_sendNotification("Testing if notifications worked!");
-        // Toast.makeText(this, Constants.CURRENT_USER.get("location").toString(), Toast.LENGTH_LONG).show();
-
-        updateUsersInLocation("Check In Desk");
-        updateUsersInLocation("Security Zone");
-        updateUsersInLocation("Lounge");
-        updateUsersInLocation("Gate");
+        updateLocations();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         beaconManager.bind(this);
     }
 
@@ -255,40 +254,48 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         beaconManager.unbind(this);
     }
 
-    private void updateUsersInLocation(final String place) {
+    public void updateLocations(){
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("NewUser");
-        query.whereEqualTo("location", place);
+        query.whereNotEqualTo("location", "Transit");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                BubblesActivity.this.mUsersInCheckIn=0;
+                BubblesActivity.this.mUsersInSecurity=0;
+                BubblesActivity.this.mUsersInLounge=0;
+                BubblesActivity.this.mUsersInGate=0;
                 if (e == null) {
-
-                    switch (place) {
-                        case "Check In Desk":
-                            mUsersInCheckIn = list.size();
-                            fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, place);
-                            Log.i(TAG, String.valueOf(mUsersInCheckIn));
-                            break;
-                        case "Security Zone":
-                            mUsersInSecurity = list.size();
-                            fillBubbleValues(10, mUsersInSecurity, 25, 3, 1, place);
-                            break;
-                        case "Lounge":
-                            mUsersInLounge = list.size();
-                            fillBubbleValues(10, mUsersInLounge, 25, 3, 1, place);
-                            break;
-                        case "Gate":
-                            mUsersInGate = list.size();
-                            fillBubbleValues(10, mUsersInGate, 25, 3, 1, place);
-                            break;
-                        case "Transit":
-                            mUsersInTransit = list.size();
+                    for (ParseObject user : list){
+                        switch (user.get("location").toString()) {
+                            case "Check In Desk":
+                                BubblesActivity.this.mUsersInCheckIn++;
+                                break;
+                            case "Security Zone":
+                                BubblesActivity.this.mUsersInSecurity++;
+                                break;
+                            case "Lounge":
+                                BubblesActivity.this.mUsersInLounge++;
+                                break;
+                            case "Gate":
+                                BubblesActivity.this.mUsersInGate++;
+                                break;
+                            case "Transit":
+                                Log.i("RIHANNA", "Transit should not be updated here");
+                        }
                     }
                 }
                 Toast.makeText(BubblesActivity.this, String.valueOf(mUsersInCheckIn), Toast.LENGTH_LONG).show();
-
             }
         });
+        fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, "Check In Desk");
+        fillBubbleValues(10, mUsersInSecurity, 25, 3, 1, "Security Zone");
+        fillBubbleValues(10, mUsersInLounge, 25, 3, 1, "Lounge");
+        fillBubbleValues(10, mUsersInGate, 25, 3, 1, "Gate");
+
+        updateBubblesSize("Check In Desk");
+        updateBubblesSize("Security Zone");
+        updateBubblesSize("Lounge");
+        updateBubblesSize("Gate");
     }
 
     @Override
@@ -322,6 +329,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();
+        stopScanning();
         super.onStop();
     }
 
@@ -340,9 +348,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     public void onLocationChanged(Location location) {
         mUserLatitude = location.getLatitude();
         mUserLongitude = location.getLongitude();
-
-        mTestLat.setText(Double.toString(mUserLatitude));
-        mTestLong.setText(Double.toString(mUserLongitude));
 
         getTransportationTime();
     }
@@ -404,20 +409,36 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
     }
 
-    private void drawBubbles(int t, int c, int i, int s, int g) {
+    private void updateBubblesSize(String place) {
 
-//        RelativeLayout.LayoutParams transportParams = new RelativeLayout.LayoutParams(t, t);
-//        RelativeLayout.LayoutParams checkInParams = new RelativeLayout.LayoutParams(c, c);
-//        RelativeLayout.LayoutParams immigrationParams = new RelativeLayout.LayoutParams(i, i);
-//        RelativeLayout.LayoutParams securityParams = new RelativeLayout.LayoutParams(s, s);
-//        RelativeLayout.LayoutParams gateParams = new RelativeLayout.LayoutParams(g, g);
+        switch (place) {
+            case "Transit":
+                mTransportationBubble.getLayoutParams().height = (Constants.TRANSPORT_VALUE) + 60;
+                mTransportationBubble.getLayoutParams().width = (Constants.TRANSPORT_VALUE) + 60;
+                break;
+            case "Check In Desk":
+                mCheckInBubble.getLayoutParams().height = (mUsersInCheckIn * 20) + 60;
+                mCheckInBubble.getLayoutParams().width = (mUsersInCheckIn * 20) + 60;
+                break;
+            case "Security Zone":
+                mSecurityBubble.getLayoutParams().height = (mUsersInSecurity * 3) + 60;
+                mSecurityBubble.getLayoutParams().width = (mUsersInSecurity * 3) + 60;
+                break;
+            case "Lounge":
+                mLoungeBubble.getLayoutParams().height = (mUsersInLounge * 3) + 60;
+                mLoungeBubble.getLayoutParams().width = (mUsersInLounge * 3) + 60;
+                break;
+            case "Gate":
+                mGateBubble.getLayoutParams().height = (mUsersInGate * 3) + 60;
+                mGateBubble.getLayoutParams().width = (mUsersInGate * 3) + 60;
+                break;
+        }
 
-//        mTransportationBubble.setLayoutParams(transportParams);
-//        mCheckInBubble.setLayoutParams(checkInParams);
-//        mImmigrationBubble.setLayoutParams(immigrationParams);
-//        mSecurityBubble.setLayoutParams(securityParams);
-//        mGateBubble.setLayoutParams(gateParams);
+    }
 
+    private void updateBufferSize() {
+        mBufferBubble.getLayoutParams().height = (Constants.BUFFER_VALUE * 3) + 20;
+        mBufferBubble.getLayoutParams().width = (Constants.BUFFER_VALUE * 3) + 20;
     }
 
     public void populateGeofenceList() {
@@ -565,7 +586,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                 @Override
                 public void onFailure(Request request, IOException e) {
                     // TODO: Handle this later
-                    Toast.makeText(BubblesActivity.this, "There was an error", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, e.getMessage());
                 }
 
                 @Override
@@ -581,7 +602,9 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                                     Toast.makeText(BubblesActivity.this,
                                             transportationValue,
                                             Toast.LENGTH_LONG).show();
-                                    updateDisplay(transportationValue);
+                                    mTransportValue.setText(transportationValue);
+                                    Constants.TRANSPORT_VALUE = Integer.valueOf(transportationValue);
+                                    updateBubblesSize("Transit");
                                 }
                             });
                         } else {
@@ -623,7 +646,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private String getTransportationValue(String jsonData) throws JSONException {
 
         JSONObject response = new JSONObject(jsonData);
-        String status = response.getString("status");
 
         int counter = 0;
 
@@ -643,19 +665,15 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         return (counter / 60) + "";
     }
 
-    private void updateDisplay(String data) {
-
-        mTransportValue.setText(data);
-
-    }
-
     @Override
     public void onBeaconServiceConnect() {}
 
     /**
      * start looking for beacons.
      */
-    private void startScanning(Button scanButton) {
+    private void startScanning() {
+
+        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
 
         // Reset event counter
         eventNum = 1;
@@ -703,12 +721,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                                 e.printStackTrace();
                             }
 
-                            updateUsersInLocation("Check In Desk");
-                            // Log.i(TAG, String.valueOf(mUsersInCheckIn));
-                            updateUsersInLocation("Security Zone");
-                            // Log.i(TAG, String.valueOf(mUsersInSecurity));
-                            updateUsersInLocation("Lounge");
-                            updateUsersInLocation("Gate");
+                            updateLocations();
 
                             // TODO - update server
                             // TODO - potentially determine location in app based on major value
@@ -722,7 +735,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         try {
             beaconManager.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
-            // TODO - OK, what now then?
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -730,11 +743,11 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     /**
      * Stop looking for beacons.
      */
-    private void stopScanning(Button scanButton) {
+    private void stopScanning() {
         try {
             beaconManager.stopRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
-            // TODO - OK, what now then?
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -805,9 +818,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-
                 Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -851,17 +862,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                         break;
                 }
         }
-    }
-
-    private void toggleScanState() {
-
-        String currentState = mScanButton.getText().toString();
-        if (currentState.equals(MODE_SCANNING)) {
-            stopScanning(mScanButton);
-        } else {
-            startScanning(mScanButton);
-        }
-
     }
 
 }

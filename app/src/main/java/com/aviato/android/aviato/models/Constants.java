@@ -9,6 +9,10 @@ public class Constants {
 
     public static ParseObject CURRENT_USER;
 
+    public static int BUFFER_VALUE = 0;
+
+    public static int TRANSPORT_VALUE = 0;
+
     private Constants() {
     }
 

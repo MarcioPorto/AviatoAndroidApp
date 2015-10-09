@@ -9,16 +9,6 @@
                 tools:context="com.aviato.android.aviato.ui.FlightInfoActivity"
                 android:background="@color/background_blue">
 
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Get me to the Airport"-->
-        <!--android:background="@color/logo_orange"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:id="@+id/get_me_to_airport_button"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +17,8 @@
         android:id="@+id/departure_airport_code"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textSize="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +28,8 @@
         android:id="@+id/arrival_airport_code"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:textSize="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,7 +58,8 @@
         android:text="UA743"
         android:id="@+id/flight_number_label"
         android:layout_alignTop="@+id/departure_airport_code"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -89,7 +82,8 @@
                 android:text="STATUS"
                 android:id="@+id/status_label"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -97,14 +91,16 @@
                 android:text="BOARDING"
                 android:id="@+id/boarding_label"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="GATE"
                 android:id="@+id/gate_label"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
@@ -120,7 +116,8 @@
                 android:text="--"
                 android:id="@+id/status_value"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -128,7 +125,8 @@
                 android:text="--"
                 android:id="@+id/boarding_value"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -136,7 +134,8 @@
                 android:text="--"
                 android:id="@+id/gate_value"
                 android:gravity="center_horizontal"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:textSize="20dp"/>
 
         </LinearLayout>
     </LinearLayout>

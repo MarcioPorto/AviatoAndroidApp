@@ -44,8 +44,8 @@ public class MainActivity extends Activity {
                             getString(R.string.flght_number_check_message),
                             Toast.LENGTH_LONG).show();
                 } else {
-                    Parse.initialize(MainActivity.this, "iavGr3kHa2LmreIPoSZQ9P3xxfv38YECGrxmVTC2", "9sT41tNlXcqKp5oeNteITozGLJaTfXwplW6IYhz8");
-                    ParseInstallation.getCurrentInstallation().saveInBackground();
+
+                    initParse();
 
                     final ParseObject user = new ParseObject("NewUser");
                     user.put("location", "Transit");
@@ -106,4 +106,14 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void initParse() {
+        try {
+            Parse.initialize(this, "iavGr3kHa2LmreIPoSZQ9P3xxfv38YECGrxmVTC2", "9sT41tNlXcqKp5oeNteITozGLJaTfXwplW6IYhz8");
+            ParseInstallation.getCurrentInstallation().saveInBackground();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

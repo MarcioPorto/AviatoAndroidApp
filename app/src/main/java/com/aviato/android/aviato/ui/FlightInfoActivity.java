@@ -90,10 +90,10 @@ public class FlightInfoActivity extends Activity {
     private void getFlightInfo() {
         // TODO: Sets all the TextViews to their appropriate values based on live information.
         // These are just dummy values
-        mDepartureAirportCity.setText("Recife");
-        mDepartureAirportCode.setText("REC");
-        mArrivalAirportCity.setText("Saint Paul");
-        mArrivalAirportCode.setText("MSP");
+        mDepartureAirportCity.setText("Singapore");
+        mDepartureAirportCode.setText("SIN");
+        mArrivalAirportCity.setText("San Francisco");
+        mArrivalAirportCode.setText("SFO");
         mFlightStatusValue.setText("On time");
         mFlightBoardingValue.setText("10:30 AM");
         mFlightGateValue.setText("3F");
