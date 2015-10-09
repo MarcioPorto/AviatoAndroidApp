@@ -13,6 +13,12 @@ public class Constants {
 
     public static int TRANSPORT_VALUE = 0;
 
+    public static int USERS_IN_CHECK_IN = 0;
+    public static int USERS_IN_SECURITY = 0;
+    public static int USERS_IN_LOUNGE = 0;
+    public static int USERS_IN_GATE = 0;
+
+
     private Constants() {
     }
 

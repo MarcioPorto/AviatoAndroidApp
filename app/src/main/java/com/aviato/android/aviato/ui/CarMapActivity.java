@@ -233,8 +233,7 @@ public class CarMapActivity extends AppCompatActivity implements OnMapReadyCallb
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(CarMapActivity.this, transportationValue, Toast.LENGTH_LONG).show();
-                                    // Toast.makeText(CarMapActivity.this, "", Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(CarMapActivity.this, transportationValue, Toast.LENGTH_LONG).show();
                                     updateDisplay();
                                 }
                             });

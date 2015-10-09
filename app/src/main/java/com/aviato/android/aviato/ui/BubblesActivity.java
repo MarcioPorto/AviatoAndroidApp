@@ -300,6 +300,8 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
             }
         });
 
+        Toast.makeText(this, String.valueOf(mUsersInCheckIn), Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -631,7 +633,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
      */
     private void startScanning(Button scanButton) {
 
-//        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
 
         // Reset event counter
         eventNum = 1;
@@ -776,7 +778,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-//                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
+                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
             }
         });
     }
