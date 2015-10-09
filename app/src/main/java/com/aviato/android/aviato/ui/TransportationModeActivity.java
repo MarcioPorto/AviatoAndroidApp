@@ -204,11 +204,8 @@ public class TransportationModeActivity extends Activity {
                     startActivity(intent);
                 }
                 if (item.getTransportType().equals("Transit")) {
-                    Intent intent = new Intent(getApplicationContext(), CarMapActivity.class);
-                    intent.putExtra("userLatitude", mUserLatitude);
-                    intent.putExtra("userLongitude", mUserLongitude);
-                    intent.putExtra("destinationLatitude", mDestinationLatitude);
-                    intent.putExtra("destinationLongitude", mDestinationLongitude);
+                    Intent intent = new Intent(getApplicationContext(), BubblesActivity.class);
+                    intent.putExtra("isTransit", true);
                     startActivity(intent);
                 }
             }

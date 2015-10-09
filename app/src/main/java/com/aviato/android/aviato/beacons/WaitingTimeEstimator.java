@@ -17,9 +17,9 @@ public class WaitingTimeEstimator {
     public static double estimateWaitingTime(int time_until_flight, int numPeople, int numFlights, double mu, double mle_lambda) {
         double lambda = 1 - 0.03 * time_until_flight * mle_lambda;
         if (lambda < 0) { lambda = 0;}
-        double w_c = 10 * mu * numPeople * lambda + 3;
+        double w_c = 2 * mu * numPeople * lambda + 3;
         double w_f = 0.4 * numFlights * (1 - lambda);
-        if (w_f > mu*numPeople) { w_f =12* mu * numPeople;}
+        if (w_f > mu*numPeople) { w_f = 2* mu * numPeople + 0.08 * numFlights;}
         return w_c + w_f;
     }
 

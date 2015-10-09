@@ -56,7 +56,7 @@
         </activity>
         <activity
             android:name=".ui.BubblesActivity"
-            android:label="Bubble Page"
+            android:label="Waiting Time"
             android:parentActivityName=".ui.FlightInfoActivity"
             android:screenOrientation="portrait" >
             <meta-data

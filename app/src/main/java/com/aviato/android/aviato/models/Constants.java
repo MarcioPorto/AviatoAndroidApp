@@ -9,7 +9,7 @@ public class Constants {
 
     public static ParseObject CURRENT_USER;
 
-    public static int BUFFER_VALUE = 0;
+    public static int BUFFER_VALUE = 20;
 
     public static int TRANSPORT_VALUE = 0;
 
@@ -18,6 +18,10 @@ public class Constants {
     public static int USERS_IN_LOUNGE = 0;
     public static int USERS_IN_GATE = 0;
 
+    public static int CHECK_IN_VALUE = 0;
+    public static int SECURITY_VALUE = 0;
+    public static int LOUNGE_VALUE = 0;
+    public static int GATE_VALUE = 0;
 
     private Constants() {
     }
