@@ -1,8 +1,8 @@
 package com.aviato.android.aviato.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.aviato.android.aviato.R;
 
-public class FlightInfoActivity extends AppCompatActivity {
+public class FlightInfoActivity extends Activity {
 
     public static final String TAG = FlightInfoActivity.class.getSimpleName();
 
@@ -97,6 +97,11 @@ public class FlightInfoActivity extends AppCompatActivity {
         mFlightStatusValue.setText("On time");
         mFlightBoardingValue.setText("10:30 AM");
         mFlightGateValue.setText("3F");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
 }

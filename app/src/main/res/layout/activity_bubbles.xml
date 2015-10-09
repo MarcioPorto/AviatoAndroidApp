@@ -7,14 +7,18 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.aviato.android.aviato.ui.BubblesActivity"
-                android:background="#3399ff">
+                android:background="@color/background_blue">
 
     <ImageView
         android:contentDescription="How long transportation will take"
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         android:id="@+id/transport_bubble"
-        android:src="@mipmap/ic_empty_circle"
+        android:src="@drawable/empty_circle"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"/>
@@ -25,7 +29,7 @@
         android:layout_height="@dimen/default_bubble_size"
         android:scaleType="fitCenter"
         android:id="@+id/checkin_bubble"
-        android:src="@mipmap/ic_empty_circle"
+        android:src="@drawable/empty_circle"
         android:layout_marginLeft="60dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="110dp"/>
@@ -35,7 +39,7 @@
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/immigration_bubble"
-        android:src="@mipmap/ic_empty_circle"
+        android:src="@drawable/empty_circle"
         android:layout_marginLeft="100dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="190dp"/>
@@ -45,7 +49,7 @@
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/security_bubble"
-        android:src="@mipmap/ic_empty_circle"
+        android:src="@drawable/empty_circle"
         android:layout_marginLeft="140dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="270dp"/>
@@ -55,7 +59,7 @@
         android:layout_width="@dimen/default_bubble_size"
         android:layout_height="@dimen/default_bubble_size"
         android:id="@+id/gate_bubble"
-        android:src="@mipmap/ic_empty_circle"
+        android:src="@drawable/empty_circle"
         android:layout_marginLeft="180dp"
         android:layout_marginStart="180dp"
         android:layout_marginTop="350dp"/>
@@ -139,7 +143,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="100"
         android:id="@+id/transport_value"
         android:layout_alignTop="@+id/transport_bubble"
         android:layout_alignBottom="@+id/transport_bubble"
@@ -153,7 +156,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="100"
         android:id="@+id/checkin_value"
         android:layout_alignTop="@+id/checkin_bubble"
         android:layout_alignBottom="@+id/checkin_bubble"
@@ -167,7 +169,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="100"
         android:id="@+id/immigration_value"
         android:layout_alignTop="@+id/immigration_bubble"
         android:layout_alignBottom="@+id/immigration_bubble"
@@ -181,7 +182,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="100"
         android:id="@+id/security_value"
         android:layout_alignTop="@+id/security_bubble"
         android:layout_alignBottom="@+id/security_bubble"
@@ -195,7 +195,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="100"
         android:id="@+id/gate_value"
         android:layout_alignTop="@+id/gate_bubble"
         android:layout_alignBottom="@+id/gate_bubble"
@@ -227,5 +226,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/immigration_bubble"
+        android:layout_alignStart="@+id/immigration_bubble"/>
 
 </RelativeLayout>

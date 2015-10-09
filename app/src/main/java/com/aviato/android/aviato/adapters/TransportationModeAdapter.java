@@ -56,7 +56,14 @@ public class TransportationModeAdapter extends BaseAdapter {
 
         holder.transportIcon.setImageResource(mode.getIconId(mode.getTransportType()));
         holder.transportType.setText(mode.getTransportType());
-        holder.tripTime.setText(mode.getTripTime() + " min");
+        switch (mode.getTransportType()) {
+            case "Car":
+                holder.tripTime.setText(mode.getTripTime() + " min");
+            case "Transit":
+                // holder.tripTime.setText(mode.getTripTime() + " min");
+                holder.tripTime.setText("1h 26min");
+                break;
+        }
 
         return convertView;
     }

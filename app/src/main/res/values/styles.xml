@@ -1,8 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
         <!-- Customize your theme here. -->
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:buttonStyle">@style/ButtonTheme</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:textColorTertiary">@color/logo_orange</item>
+        <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
+        <item name="android:textColorSecondaryInverse">@android:color/secondary_text_light</item>
+        <item name="android:textColorTertiaryInverse">@android:color/tertiary_text_light</item>
+        <!--<item name="android:textColorPrimaryDisableOnly">@android:color/primary_text_dark_disable_only</item>-->
+        <!--<item name="android:textColorPrimaryInverseDisableOnly">@android:color/primary_text_light_disable_only</item>-->
+        <item name="android:textColorPrimaryNoDisable">@android:color/primary_text_dark_nodisable</item>
+        <item name="android:textColorSecondaryNoDisable">@android:color/secondary_text_dark_nodisable</item>
+        <item name="android:textColorPrimaryInverseNoDisable">@android:color/primary_text_light_nodisable</item>
+        <item name="android:textColorSecondaryInverseNoDisable">@android:color/secondary_text_light_nodisable</item>
+    </style>
+    <style name="ButtonTheme" parent="android:style/Widget.Button">
+        <item name="android:textColor">#ffffff</item>
     </style>
 
 </resources>

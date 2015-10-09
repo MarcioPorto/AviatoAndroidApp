@@ -1,10 +1,13 @@
 package com.aviato.android.aviato.models;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseObject;
 
 import java.util.HashMap;
 
 public class Constants {
+
+    public static ParseObject CURRENT_USER;
 
     private Constants() {
     }

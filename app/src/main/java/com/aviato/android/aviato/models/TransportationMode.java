@@ -43,11 +43,14 @@ public class TransportationMode {
         if (transportType.equals("Car")) {
             iconId = R.mipmap.ic_directions_car_white_48dp;
         }
-        else if (transportType.equals("Bus")) {
-            iconId = R.mipmap.ic_directions_bus_white_48dp;
+        else if (transportType.equals("Transit")) {
+            iconId = R.mipmap.ic_directions_transit_white_48dp;
         }
         else if (transportType.equals("Walk")) {
             iconId = R.mipmap.ic_directions_walk_white_48dp;
+        }
+        else if (transportType.equals("Bicycle")) {
+            iconId = R.mipmap.ic_directions_bike_white_48dp;
         }
 
         return iconId;
