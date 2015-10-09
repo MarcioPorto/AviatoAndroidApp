@@ -141,10 +141,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     protected ArrayList<Geofence> mGeofenceList;
 
     public int mUsersInTransit = 0;
-    public int mUsersInCheckIn = 0;
-    public int mUsersInSecurity = 0;
-    public int mUsersInLounge = 0;
-    public int mUsersInGate = 0;
 
     public LocationManager locationManager = new LocationManager();
 
@@ -178,7 +174,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         mSecurityValue.setText(0 + "");
         mGateValue.setText(0 + "");
         mLoungeValue.setText(0 + "");
-        mBufferValue.setText(0 + "");
+        mBufferValue.setText(Constants.BUFFER_VALUE + "");
 
         mScanButton = (Button)findViewById(R.id.scanButton);
         mScanButton.setText(MODE_STOPPED);
@@ -200,10 +196,10 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
         populateGeofenceList();
 
-        fillBubbleValues(10, mUsersInCheckIn, 25, 3, 1, "Check In Desk");
-        fillBubbleValues(10, mUsersInSecurity, 25, 3, 1, "Security Zone");
-        fillBubbleValues(10, mUsersInLounge, 25, 3, 1, "Lounge");
-        fillBubbleValues(10, mUsersInGate, 25, 3, 1, "Gate");
+        fillBubbleValues(10, Constants.USERS_IN_CHECK_IN, 25, 3, 1, "Check In Desk");
+        fillBubbleValues(10, Constants.USERS_IN_SECURITY, 25, 3, 1, "Security Zone");
+        fillBubbleValues(10, Constants.USERS_IN_LOUNGE, 25, 3, 1, "Lounge");
+        fillBubbleValues(10, Constants.USERS_IN_GATE, 25, 3, 1, "Gate");
 
         updateBubblesSize("Transit");
         updateBubblesSize("Check In Desk");
@@ -264,43 +260,41 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                BubblesActivity.this.mUsersInCheckIn = 0;
-                BubblesActivity.this.mUsersInSecurity = 0;
-                BubblesActivity.this.mUsersInLounge = 0;
-                BubblesActivity.this.mUsersInGate = 0;
+                int a = 0;
                 if (e == null) {
                     for (ParseObject user : list) {
                         switch (user.get("location").toString()) {
-                            case "Check In Desk":
-                                BubblesActivity.this.mUsersInCheckIn++;
+                            case "Checkin Desk":
+                                a++;
                                 break;
                             case "Security Zone":
-                                BubblesActivity.this.mUsersInSecurity++;
+                                Constants.USERS_IN_SECURITY++;
                                 break;
                             case "Lounge":
-                                BubblesActivity.this.mUsersInLounge++;
+                                Constants.USERS_IN_LOUNGE++;
                                 break;
                             case "Gate":
-                                BubblesActivity.this.mUsersInGate++;
+                                Constants.USERS_IN_GATE++;
                                 break;
                             case "Transit":
                                 Log.i("RIHANNA", "Transit should not be updated here");
                         }
                     }
-                    fillBubbleValues(10, BubblesActivity.this.mUsersInCheckIn, 25, 3, 1, "Check In Desk");
-                    fillBubbleValues(10, BubblesActivity.this.mUsersInSecurity, 25, 3, 1, "Security Zone");
-                    fillBubbleValues(10, BubblesActivity.this.mUsersInLounge, 25, 3, 1, "Lounge");
-                    fillBubbleValues(10, BubblesActivity.this.mUsersInGate, 25, 3, 1, "Gate");
+                    fillBubbleValues(10, Constants.USERS_IN_CHECK_IN, 25, 3, 1, "Check In Desk");
+                    fillBubbleValues(10, Constants.USERS_IN_SECURITY, 25, 3, 1, "Security Zone");
+                    fillBubbleValues(10, Constants.USERS_IN_LOUNGE, 25, 3, 1, "Lounge");
+                    fillBubbleValues(10, Constants.USERS_IN_GATE, 25, 3, 1, "Gate");
 
                     updateBubblesSize("Check In Desk");
                     updateBubblesSize("Security Zone");
                     updateBubblesSize("Lounge");
                     updateBubblesSize("Gate");
                 }
+                if (a != Constants.USERS_IN_CHECK_IN) {
+                    Constants.USERS_IN_CHECK_IN = a;
+                }
             }
         });
-
-        Toast.makeText(this, String.valueOf(mUsersInCheckIn), Toast.LENGTH_LONG).show();
 
     }
 
@@ -422,20 +416,20 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
                 mTransportationBubble.getLayoutParams().width = (Constants.TRANSPORT_VALUE) + 60;
                 break;
             case "Check In Desk":
-                mCheckInBubble.getLayoutParams().height = (mUsersInCheckIn * 30) + 60;
-                mCheckInBubble.getLayoutParams().width = (mUsersInCheckIn * 30) + 60;
+                mCheckInBubble.getLayoutParams().height = (Constants.USERS_IN_CHECK_IN * 2) + 60;
+                mCheckInBubble.getLayoutParams().width = (Constants.USERS_IN_CHECK_IN * 2) + 60;
                 break;
             case "Security Zone":
-                mSecurityBubble.getLayoutParams().height = (mUsersInSecurity * 3) + 60;
-                mSecurityBubble.getLayoutParams().width = (mUsersInSecurity * 3) + 60;
+                mSecurityBubble.getLayoutParams().height = (Constants.USERS_IN_SECURITY * 2) + 60;
+                mSecurityBubble.getLayoutParams().width = (Constants.USERS_IN_SECURITY * 2) + 60;
                 break;
             case "Lounge":
-                mLoungeBubble.getLayoutParams().height = (mUsersInLounge * 3) + 60;
-                mLoungeBubble.getLayoutParams().width = (mUsersInLounge * 3) + 60;
+                mLoungeBubble.getLayoutParams().height = (Constants.USERS_IN_LOUNGE * 2) + 60;
+                mLoungeBubble.getLayoutParams().width = (Constants.USERS_IN_LOUNGE * 2) + 60;
                 break;
             case "Gate":
-                mGateBubble.getLayoutParams().height = (mUsersInGate * 3) + 60;
-                mGateBubble.getLayoutParams().width = (mUsersInGate * 3) + 60;
+                mGateBubble.getLayoutParams().height = (Constants.USERS_IN_GATE * 2) + 60;
+                mGateBubble.getLayoutParams().width = (Constants.USERS_IN_GATE * 2) + 60;
                 break;
         }
 
@@ -633,8 +627,6 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
      */
     private void startScanning(Button scanButton) {
 
-        Toast.makeText(this, "Scanning started", Toast.LENGTH_LONG).show();
-
         // Reset event counter
         eventNum = 1;
         // Get current values for logging preferences
@@ -718,7 +710,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
         if (index) {
             scanString.append(eventNum++);
         }
-        //NO NEED TO LOOK HERE, CONTINUE AT ELSE STATMENT BELOW
+        //NO NEED TO LOOK HERE, CONTINUE AT ELSE STATEMENT BELOW
         if (beacon.getServiceUuid() == 0xfeaa) {
             Log.e("ERROR", "This is not a beacon the app can deal with");
         } else {
@@ -778,7 +770,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
+                // Toast.makeText(BubblesActivity.this, line, Toast.LENGTH_LONG).show();
             }
         });
     }
