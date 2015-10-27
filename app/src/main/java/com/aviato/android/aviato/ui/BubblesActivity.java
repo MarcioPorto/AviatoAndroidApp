@@ -569,7 +569,7 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
 
         String origin = Double.toString(mUserLatitude) + "," + Double.toString(mUserLongitude);
         String destination = Double.toString(mDestinationLatitude) + "," + Double.toString(mDestinationLongitude);
-        String apiKey = "AIzaSyAZ8MrrgbA9f6N5epzPjMdhw7X29HMO8e0";
+        String apiKey = "@string/google_maps_key";
         String arrivalTime = "1444305043";
 
         // Mode already defaults to driving
@@ -915,13 +915,13 @@ public class BubblesActivity extends Activity implements BeaconConsumer, GoogleA
             time = " AM";
         }
 
-        String hourStr = Integer.toString(hours);
+        String hourStr = Integer.toString(hours + 3);
         String minutesStr = Integer.toString(minutes);
         if (minutes < 10) {
             minutesStr = "0" + minutesStr;
         }
 
-        return hourStr + ":" + minutesStr + time;
+        return hourStr  + ":" + minutesStr + time;
 
     }
 

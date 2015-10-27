@@ -151,6 +151,7 @@
         android:layout_alignLeft="@+id/transport_bubble"
         android:layout_alignStart="@id/transport_bubble"
         android:layout_alignEnd="@id/transport_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <TextView
@@ -164,6 +165,7 @@
         android:layout_alignLeft="@+id/checkin_bubble"
         android:layout_alignStart="@id/checkin_bubble"
         android:layout_alignEnd="@id/checkin_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <TextView
@@ -177,6 +179,7 @@
         android:layout_alignLeft="@+id/immigration_bubble"
         android:layout_alignStart="@id/immigration_bubble"
         android:layout_alignEnd="@id/immigration_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <TextView
@@ -190,6 +193,7 @@
         android:layout_alignLeft="@+id/security_bubble"
         android:layout_alignStart="@id/security_bubble"
         android:layout_alignEnd="@id/security_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <TextView
@@ -203,6 +207,7 @@
         android:layout_alignLeft="@+id/gate_bubble"
         android:layout_alignStart="@id/gate_bubble"
         android:layout_alignEnd="@id/gate_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <!-- buffer bubble -->
@@ -246,6 +251,7 @@
         android:layout_alignLeft="@+id/buffer_bubble"
         android:layout_alignStart="@id/buffer_bubble"
         android:layout_alignEnd="@id/buffer_bubble"
+        android:textColor="@color/logo_orange"
         android:gravity="center"/>
 
     <Button
@@ -268,6 +274,16 @@
         android:textSize="35dp"
         android:id="@+id/leavingTime"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="You should leave at:"
+        android:id="@+id/textView"
+        android:layout_above="@+id/leavingTime"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"/>
 

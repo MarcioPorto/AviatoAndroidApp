@@ -110,7 +110,7 @@ public class TransportationModeActivity extends Activity {
 
         String origin = Double.toString(mUserLatitude) + "," + Double.toString(mUserLongitude);
         String destination = Double.toString(mDestinationLatitude) + "," + Double.toString(mDestinationLongitude);
-        String apiKey = "AIzaSyBAXuIbW7Hn07sggLJZuG3v_Uwu7gQaPcU";
+        String apiKey = "@string/google_maps_key";
         String arrivalTime = "1444305043";
 
         String apiURL = "";

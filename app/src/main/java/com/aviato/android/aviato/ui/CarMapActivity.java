@@ -198,7 +198,7 @@ public class CarMapActivity extends AppCompatActivity implements OnMapReadyCallb
 
         String origin = Double.toString(mUserLatitude) + "," + Double.toString(mUserLongitude);
         String destination = Double.toString(mDestinationLatitude) + "," + Double.toString(mDestinationLongitude);
-        String apiKey = "AIzaSyAZ8MrrgbA9f6N5epzPjMdhw7X29HMO8e0";
+        String apiKey = "@string/google_maps_key";
         String arrivalTime = "1444305043";
 
         // Mode already defaults to driving

@@ -92,11 +92,11 @@ public class FlightInfoActivity extends Activity {
         // These are just dummy values
         mDepartureAirportCity.setText("Singapore");
         mDepartureAirportCode.setText("SIN");
-        mArrivalAirportCity.setText("San Francisco");
-        mArrivalAirportCode.setText("SFO");
+        mArrivalAirportCity.setText("Los Angeles");
+        mArrivalAirportCode.setText("LAX");
         mFlightStatusValue.setText("On time");
-        mFlightBoardingValue.setText("03:45 PM");
-        mFlightGateValue.setText("3F");
+        mFlightBoardingValue.setText("06:45 PM");
+        mFlightGateValue.setText("16F");
     }
 
     @Override
